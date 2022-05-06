@@ -1,0 +1,104 @@
+Terraform Auth Types
+
+1) Static credentials
+2) Environment variables
+3) Shared credentials/configuration file
+4) Ec2 Role
+
+
+1) cp terraform /usr/local/bin
+2) export PATH=$PATH:/usr/local/bin
+3) terraform version
+4) cp terraform /usr/bin
+5) terraform version
+6) mkdir terraform-scripts
+7) cd terraform-scripts
+8) vi create-ec2-instance.tf
+
+
+Static credentials (Method 1)
+
+provider "aws" {
+  region = "ap-south-1"
+ }
+resource "aws_instance" "web" {
+  ami            = "Ami-id"
+  instance_type  = "t2.micro"
+
+  tags = {
+    Name = "HelloWorld"
+ }
+}
+
+terraform plan (will get the Auth error)
+
+provider "aws" {
+  region     = "us-west-2"
+  access_key = "my-access-key"
+  secret_key = "my-secret-key"
+}
+
+
+provider "aws" {
+  region = "ap-south-1"
+  access_key = "my-access-key"
+  secret_key = "my-secret-key"
+}
+resource "aws_instance" "web" {
+  ami            = "Ami-id"
+  instance_type  = "t2.micro"
+
+  tags = {
+    Name = "HelloWorld"
+ }
+}
+
+
+
+terraform plan
+terraform apply
+terraform destroy
+
+2) Environment variables (Method 2)
+
+Remove the AK/SK in the Static Credentails
+
+export AWS_ACCESS_KEY_ID=anaccesskey
+export AWS_SECRET_ACCESS_KEY=asecretkey
+
+terraform plan
+terraform apply
+terraform destroy
+
+3) Shared credentials/configuration file (Method 3)
+
+aws configure --profile customprofile
+
+
+provider "aws" {
+  region                  = "us-west-2"
+  shared_credentials_file = "/root/.aws/credentials"
+  profile                 = "customprofile"
+}
+
+
+terraform plan
+terraform apply
+terraform destroy
+
+
+4) Ec2 Role (Method 4)
+
+Remove the AK/SK in the Hidden Location
+Create a Role for the EC2 role (Ec2FullAccess)
+Attach to the Terrafom ec2 Server
+
+terraform plan
+terraform apply
+terraform destroy
+
+
+
+
+ 
+

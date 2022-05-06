@@ -1,0 +1,16 @@
+Terraform Configuration
+
+1) cp terraform /usr/local/bin
+2) export PATH=$PATH:/usr/local/bin
+3) terraform version
+4) cp terraform /usr/bin
+5) terraform version
+6) yum install git -y
+7) git clone  https://github.com/VamsiTechTuts/awsautomationrepo.git
+8) aws configure (Give Root user AK/SK, IAM User Ec2fullpermisson/Ec2 AK/SK)
+9) terraform init
+10) terraform plan
+11) terraform apply --auto-approve
+12) terraform destroy
+
+https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/windows_virtual_machine
